@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: loom-etl-uploader
+  cloud:
+    aws:
+      region:
+        static: ${AWS_REGION}
+      credentials:
+        access-key: ${AWS_ACCESS_KEY}
+        secret-key: ${AWS_SECRET_KEY}
+
+logging:
+  level:
+    io:
+      awspring:
+        cloud: debug
+
+app:
+  s3:
+    output-path: s3://etl-weather/output/${CURRENT_DATE}.csv
