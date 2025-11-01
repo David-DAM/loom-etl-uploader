@@ -1,4 +1,4 @@
-package com.davinchicoder.loom_etl_uploader.domain;
+package com.davinchicoder.loom_etl_uploader.domain.model;
 
 import lombok.Builder;
 import lombok.Data;

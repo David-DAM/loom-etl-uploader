@@ -1,6 +1,9 @@
 spring:
   application:
     name: loom-etl-uploader
+  batch:
+    job:
+      enabled: false
   cloud:
     aws:
       region:
@@ -16,5 +19,7 @@ logging:
         cloud: debug
 
 app:
+  weather-api:
+    root-uri: "https://api.open-meteo.com/v1"
   s3:
     output-path: s3://etl-weather/output/${CURRENT_DATE}.csv
