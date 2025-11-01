@@ -1,17 +1,14 @@
 package com.davinchicoder.loom_etl_uploader.infrastructure.config;
 
 import com.davinchicoder.loom_etl_uploader.domain.model.DailyWeatherSummary;
-import com.davinchicoder.loom_etl_uploader.infrastructure.reader.WeatherReader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
-import org.springframework.batch.item.file.FlatFileItemWriter;
-import org.springframework.batch.item.file.transform.BeanWrapperFieldExtractor;
-import org.springframework.batch.item.file.transform.DelimitedLineAggregator;
+import org.springframework.batch.item.ItemReader;
+import org.springframework.batch.item.ItemStreamWriter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.WritableResource;
 import org.springframework.transaction.PlatformTransactionManager;
 
 @Configuration
@@ -20,36 +17,16 @@ public class Step1Config {
 
     private final JobRepository jobRepository;
     private final PlatformTransactionManager platformTransactionManager;
-    private final WeatherReader readerStep1;
-    private final WritableResource writableResource;
+    private final ItemReader<DailyWeatherSummary> readerStep1;
+    private final ItemStreamWriter<DailyWeatherSummary> writerStep1;
 
-    @Bean
-    public FlatFileItemWriter<DailyWeatherSummary> writerStep1() {
-
-        FlatFileItemWriter<DailyWeatherSummary> writer = new FlatFileItemWriter<>();
-        writer.setEncoding("UTF-8");
-        writer.setResource(writableResource);
-        writer.setShouldDeleteIfExists(true);
-        writer.setHeaderCallback(writer1 -> writer1.write("date,avgTemperature,minTemperature,maxTemperature,latitude,longitude"));
-
-        BeanWrapperFieldExtractor<DailyWeatherSummary> fieldExtractor = new BeanWrapperFieldExtractor<>();
-        fieldExtractor.setNames(new String[]{"date", "avgTemperature", "minTemperature", "maxTemperature", "latitude", "longitude"});
-
-        DelimitedLineAggregator<DailyWeatherSummary> lineAggregator = new DelimitedLineAggregator<>();
-        lineAggregator.setDelimiter(",");
-        lineAggregator.setFieldExtractor(fieldExtractor);
-
-        writer.setLineAggregator(lineAggregator);
-
-        return writer;
-    }
 
     @Bean
     public Step step1() {
-        return new StepBuilder("uploadWeatherSummarize", jobRepository)
+        return new StepBuilder("uploadDailyWeatherSummary", jobRepository)
                 .<DailyWeatherSummary, DailyWeatherSummary>chunk(10, platformTransactionManager)
                 .reader(readerStep1)
-                .writer(writerStep1())
+                .writer(writerStep1)
                 .build();
     }
 
