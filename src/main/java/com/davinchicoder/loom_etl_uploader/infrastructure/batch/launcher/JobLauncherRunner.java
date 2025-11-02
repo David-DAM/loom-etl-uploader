@@ -1,4 +1,4 @@
-package com.davinchicoder.loom_etl_uploader.infrastructure.launcher;
+package com.davinchicoder.loom_etl_uploader.infrastructure.batch.launcher;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.*;

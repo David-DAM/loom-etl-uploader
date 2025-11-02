@@ -1,8 +1,8 @@
-package com.davinchicoder.loom_etl_uploader.infrastructure.reader;
+package com.davinchicoder.loom_etl_uploader.infrastructure.batch.reader;
 
 import com.davinchicoder.loom_etl_uploader.domain.model.DailyWeatherSummary;
 import com.davinchicoder.loom_etl_uploader.domain.model.WeatherForecast;
-import com.davinchicoder.loom_etl_uploader.infrastructure.client.WeatherClientImpl;
+import com.davinchicoder.loom_etl_uploader.infrastructure.api.client.WeatherClientImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.NonTransientResourceException;

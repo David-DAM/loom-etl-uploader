@@ -1,4 +1,4 @@
-package com.davinchicoder.loom_etl_uploader.infrastructure.dto;
+package com.davinchicoder.loom_etl_uploader.infrastructure.api.dto;
 
 import lombok.Data;
 

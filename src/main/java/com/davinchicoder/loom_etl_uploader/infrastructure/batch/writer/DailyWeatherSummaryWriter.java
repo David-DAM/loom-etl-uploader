@@ -1,4 +1,4 @@
-package com.davinchicoder.loom_etl_uploader.infrastructure.writer;
+package com.davinchicoder.loom_etl_uploader.infrastructure.batch.writer;
 
 import com.davinchicoder.loom_etl_uploader.domain.model.DailyWeatherSummary;
 import lombok.RequiredArgsConstructor;

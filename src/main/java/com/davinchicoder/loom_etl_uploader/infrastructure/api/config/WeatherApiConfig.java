@@ -1,4 +1,4 @@
-package com.davinchicoder.loom_etl_uploader.infrastructure.config;
+package com.davinchicoder.loom_etl_uploader.infrastructure.api.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
