@@ -21,8 +21,8 @@ public class JobConfig {
     public Job runJob() {
         return new JobBuilder("summarizeWeather", jobRepository)
                 .start(step1)
-//                .next(step2)
-//                .next(step3)
+                .next(step2)
+                .next(step3)
                 .build();
     }
 

@@ -19,7 +19,7 @@ public class MetadataTasklet implements Tasklet {
     private final JobMetadataRepository repository;
 
     @Override
-    public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
+    public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) {
 
         JobMetadata metadata = JobMetadata.builder()
                 .id(UUID.randomUUID().toString())
@@ -28,9 +28,10 @@ public class MetadataTasklet implements Tasklet {
                 .stepName(contribution.getStepExecution().getStepName())
                 .startTime(contribution.getStepExecution().getStartTime())
                 .endTime(contribution.getStepExecution().getEndTime())
-                .duration(contribution.getStepExecution().getEndTime().toEpochSecond(ZoneOffset.UTC) - contribution.getStepExecution().getStartTime().toEpochSecond(ZoneOffset.UTC))
+                .duration(contribution.getStepExecution().getEndTime() != null && contribution.getStepExecution().getStartTime() != null ?
+                        contribution.getStepExecution().getEndTime().toEpochSecond(ZoneOffset.UTC) - contribution.getStepExecution().getStartTime().toEpochSecond(ZoneOffset.UTC) : 0)
                 .status(contribution.getStepExecution().getExitStatus().getExitCode())
-                .errorMessage(contribution.getStepExecution().getFailureExceptions().isEmpty() ? null : contribution.getStepExecution().getFailureExceptions().get(0).getMessage())
+                .errorMessage(contribution.getStepExecution().getFailureExceptions().isEmpty() ? null : contribution.getStepExecution().getFailureExceptions().getFirst().getMessage())
                 .itemsRead(contribution.getStepExecution().getReadCount())
                 .itemsProcessed(contribution.getStepExecution().getFilterCount())
                 .itemsWritten(contribution.getStepExecution().getWriteCount())

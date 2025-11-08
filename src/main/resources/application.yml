@@ -19,7 +19,9 @@ logging:
         cloud: debug
 
 app:
+  sqs:
+    weather-summary-topic: loom-etl-queue
   weather-api:
-    root-uri: "https://api.open-meteo.com/v1"
+    root-uri: https://api.open-meteo.com/v1
   s3:
     output-path: s3://etl-weather/output/${CURRENT_DATE}.csv
