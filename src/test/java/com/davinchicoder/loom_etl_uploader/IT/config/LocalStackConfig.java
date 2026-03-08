@@ -14,7 +14,6 @@ import software.amazon.awssdk.services.sqs.SqsClient;
 @TestConfiguration
 public class LocalStackConfig {
 
-
     @Bean
     @ServiceConnection
     LocalStackContainer localStackContainer() {
