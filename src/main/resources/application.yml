@@ -1,4 +1,6 @@
 spring:
+  config:
+    import: optional:aws-secretsmanager:/secrets/database-secrets
   application:
     name: loom-etl-uploader
   batch:
